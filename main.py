@@ -5,7 +5,7 @@ import sys
 from IPToolCLI import IPToolCLI
 from IPToolTray import IPToolTray
 
-# pyinstaller --windowed --icon="../../icon.ico" --add-binary "../../icon.ico;." --name "IPTool" --specpath "bin/intermediate" --distpath "bin/dist" --workpath="bin/intermediate" "main.py"
+# pyinstaller --windowed --icon="../../icon.ico" --add-binary "../../icon.ico;." --name "IPTool" --specpath "bin/intermediate" --distpath "bin/dist" --workpath="bin/intermediate" "main.py" --exclude-module pywin32-ctypes --exclude-module altgraph --exclude-module pyinstaller-hooks-contrib --exclude-module future --exclude-module pefile --exclude-module pyinstaller --exclude-module libcrypto
 
 def main():
     mode = 1  # 0 cli, 1 tray

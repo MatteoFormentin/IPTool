@@ -5,8 +5,6 @@ import os
 import sys
 
 from IPToolCore import IPToolCore
-import threading
-
 
 class IPToolTray:
 
