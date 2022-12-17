@@ -13,7 +13,7 @@ class IPToolTray:
         self.core = IPToolCore()
         self.first_update = True
 
-        if not self.core.isAdmin():
+        if not self.core.isAdmin() and not __debug__:
             ctypes.windll.user32.MessageBoxW(0, "IPTool requires administrative privileges", "Error", 0x10)
             sys.exit(0)
 
