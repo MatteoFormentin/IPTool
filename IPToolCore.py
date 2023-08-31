@@ -6,6 +6,7 @@ import subprocess
 SHOW_IFACE_COMMAND = "netsh interface show interface"
 SET_DHCP_IP_COMMAND = """netsh interface ip set address name = "{0}" dhcp"""
 SET_STATIC_IP_COMMAND = """netsh interface ip set address name = "{0}" static {1} {2} {3}"""
+CREATE_NO_WINDOW = 0x08000000
 
 class Configuration:
     def __init__(self, _name:str, _static_ip:str, subnet_mask:str, _default_gw:str="" ) -> None:
@@ -24,7 +25,7 @@ class IPToolCore:
 
     def loadInterfaces(self):
         self.ifaces = []
-        iface_str = subprocess.check_output(SHOW_IFACE_COMMAND).splitlines()[3:-1]
+        iface_str = subprocess.check_output(SHOW_IFACE_COMMAND, shell=True, creationflags=CREATE_NO_WINDOW).splitlines()[3:-1]
         for s in iface_str:
             iface = str(s).split("  ")[-1:][0].strip('\'').lstrip().rstrip()
             self.ifaces.append(iface)
@@ -56,7 +57,7 @@ class IPToolCore:
     def setDhcp(self, iface_name):
         command = SET_DHCP_IP_COMMAND.format(iface_name)
         try:
-            subprocess.check_output(command, shell=True)
+            subprocess.check_output(command, shell=True, creationflags=CREATE_NO_WINDOW)
             return True
         except subprocess.CalledProcessError as grepexc:
             return False
@@ -64,7 +65,7 @@ class IPToolCore:
     def setStaticIP(self, iface_name, configuration):
         command = SET_STATIC_IP_COMMAND.format(iface_name, configuration.static_ip, configuration.subnet_mask, configuration.default_gw)
         try:
-            subprocess.check_output(command, shell=True)
+            subprocess.check_output(command, shell=True, creationflags=CREATE_NO_WINDOW)
             return True
         except subprocess.CalledProcessError as grepexc:   
             return False
