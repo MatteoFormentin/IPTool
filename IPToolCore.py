@@ -26,7 +26,7 @@ class IPToolCore:
         self.ifaces = []
         iface_str = subprocess.check_output(SHOW_IFACE_COMMAND).splitlines()[3:-1]
         for s in iface_str:
-            iface = str(s).split("  ")[-1:][0].strip('\'')
+            iface = str(s).split("  ")[-1:][0].strip('\'').lstrip().rstrip()
             self.ifaces.append(iface)
 
     def loadConfigurations(self):
@@ -34,14 +34,14 @@ class IPToolCore:
         tree = ET.parse(self.config_path)
         root = tree.getroot()
         for conf in root.iter("configuration"):
-            name = conf.get("name")
+            name = conf.get("name").lstrip().rstrip()
             static_ip = conf.find("ip")
             subnet_mask = conf.find("mask")
             default_gw = conf.find("gw")
             if static_ip != None:
-                static_ip = static_ip.text
-                subnet_mask = subnet_mask.text
-                default_gw = default_gw.text
+                static_ip = static_ip.text.lstrip().rstrip()
+                subnet_mask = subnet_mask.text.lstrip().rstrip()
+                default_gw = default_gw.text.lstrip().rstrip()
                 if default_gw == None:
                     default_gw = ""
             else:
