@@ -2,7 +2,6 @@ import ctypes
 import xml.etree.ElementTree as ET
 import subprocess
 
-
 SHOW_IFACE_COMMAND = "netsh interface show interface"
 SET_DHCP_IP_COMMAND = """netsh interface ip set address name = "{0}" dhcp"""
 SET_STATIC_IP_COMMAND = """netsh interface ip set address name = "{0}" static {1} {2} {3}"""
@@ -75,6 +74,9 @@ class IPToolCore:
             if c.name == conf_name:
                 return c
         return None
+    
+    def openConfigurationFileInEditor(self):
+        subprocess.check_output(["start", self.config_path], shell=True, creationflags=CREATE_NO_WINDOW)
 
     def isAdmin(self):
         try:

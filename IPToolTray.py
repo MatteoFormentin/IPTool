@@ -56,6 +56,15 @@ class IPToolTray:
                 )
             )
         )
+        
+        menu_items.append(
+            pystray.MenuItem(
+                "Open Config File",
+                lambda: (
+                     self.core.openConfigurationFileInEditor()
+                )
+            )
+        )
 
         menu_items.append(
             pystray.MenuItem(
