@@ -37,6 +37,7 @@ class IPToolTray:
     
     def getMenu(self):
         menu_items = []
+        
         for curr_iface_name in self.core.ifaces:
             menu_items.append(
                 pystray.MenuItem(
@@ -62,6 +63,15 @@ class IPToolTray:
                 "Open Config File",
                 lambda: (
                      self.core.openConfigurationFileInEditor()
+                )
+            )
+        )
+        
+        menu_items.append(
+            pystray.MenuItem(
+                "Open Network Adapter Settings",
+                lambda: (
+                     self.core.openNcpa()
                 )
             )
         )

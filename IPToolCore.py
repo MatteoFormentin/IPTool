@@ -16,7 +16,6 @@ class Configuration:
 
 
 class IPToolCore:
-
     def __init__(self, _config_path="configurations.xml") -> None:
         self.config_path = _config_path
         self.configurations = []
@@ -77,6 +76,9 @@ class IPToolCore:
     
     def openConfigurationFileInEditor(self):
         subprocess.check_output(["start", self.config_path], shell=True, creationflags=CREATE_NO_WINDOW)
+    
+    def openNcpa(self):
+        subprocess.check_output(["start", "ncpa.cpl"], shell=True, creationflags=CREATE_NO_WINDOW)
 
     def isAdmin(self):
         try:
